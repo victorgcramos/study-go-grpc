@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "./pkg/user/pb";
+
+service UserService {
+  rpc Version(VersionRequest) returns (VersionResponse) {}
+  rpc Register(RegisterRequest) returns (RegisterResponse) {}
+  //  rpc Login(LoginRequest) returns (LoginResponse) {}
+  //  rpc Validate(ValidateRequest) returns (ValidateResponse) {}
+}
+
+// Version
+message VersionRequest {}
+
+message VersionResponse {
+  string version = 1;
+  string token = 2;
+}
+
+// Register
+
+message RegisterRequest {
+  string username = 1;
+  string password = 2;
+//  bytes blob = 3;
+}
+
+message RegisterResponse {
+  string verification = 1;
+}

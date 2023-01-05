@@ -8,17 +8,17 @@ import (
 )
 
 type ZiDB struct {
-	db *sql.DB
+	*sql.DB
 }
 
-func NewDB() ZiDB {
+func OpenDB() *ZiDB {
 	db, err := sql.Open("mysql",
 		"cazzi:password@tcp(127.0.0.1:3306)/cazzi_users")
 	if err != nil {
 		log.Fatal(err)
 	}
-	return ZiDB{
-		db: db,
+	return &ZiDB{
+		db,
 	}
 }
 
@@ -27,7 +27,7 @@ func (zdb *ZiDB) Close() {
 }
 
 func (zdb *ZiDB) New(u User) error {
-	_, err := zdb.db.Exec(
+	_, err := zdb.Exec(
 		"INSERT INTO users(id, username) VALUES(?, ?)",
 		u.ID.String(),
 		u.Username,
